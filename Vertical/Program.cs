@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Vertical.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+string? sqlServerConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<VerticalDbContext>(options =>
+    options.UseSqlServer(sqlServerConnection, b => b.MigrationsAssembly("Vertical")));
 
 var app = builder.Build();
 
