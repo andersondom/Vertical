@@ -10,7 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-string? sqlServerConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+var sqlServerConnection = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<VerticalDbContext>(options =>
     options.UseSqlServer(sqlServerConnection, b => b.MigrationsAssembly("Vertical")));
 

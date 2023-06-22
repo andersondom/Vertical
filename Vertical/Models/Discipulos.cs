@@ -8,8 +8,5 @@ public class Discipulos
 {
     public int Id { get; set; }
 
-
-    [MaxLength(100)]
-    [Required]
-    public string? Nome { get; set; }
+    [MaxLength(100)] [Required] public string? Nome { get; set; }
 }
