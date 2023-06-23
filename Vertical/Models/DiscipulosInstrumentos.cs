@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vertical.Models;
@@ -5,7 +6,7 @@ namespace Vertical.Models;
 [Table("DiscipulosInstrumentos")]
 public class DiscipulosInstrumentos
 {
-    public int Id { get; set; }
+    [Key] public int Id { get; set; }
 
     [ForeignKey("Discipulos")] public int IdDiscipulo { get; set; }
 
