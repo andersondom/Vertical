@@ -17,22 +17,28 @@ public class InstrumentosController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Instrumentos>>> GetInstrumentos()
+    public async Task<ActionResult<IEnumerable<Instrumentos>>?> GetInstrumentos()
     {
-        return await _context.Instrumentos.ToListAsync();
+        if (_context.Instrumentos != null) return await _context.Instrumentos.ToListAsync();
+        return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Instrumentos>> GetInstrumento(int id)
+    public async Task<ActionResult<Instrumentos>?> GetInstrumento(int id)
     {
-        var instrumento = await _context.Instrumentos.FindAsync(id);
-
-        if (instrumento == null)
+        if (_context.Instrumentos != null)
         {
-            return NotFound();
+            var instrumento = await _context.Instrumentos.FindAsync(id);
+
+            if (instrumento == null)
+            {
+                return NotFound();
+            }
+
+            return instrumento;
         }
 
-        return instrumento;
+        return null;
     }
 
     [HttpPut("{id}")]
@@ -67,7 +73,7 @@ public class InstrumentosController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Instrumentos>> PostInstrumentos(Instrumentos instrumento)
     {
-        _context.Instrumentos.Add(instrumento);
+        _context.Instrumentos?.Add(instrumento);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetInstrumento", new { id = instrumento.Id }, instrumento);
@@ -76,17 +82,23 @@ public class InstrumentosController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteInstrumento(int id)
     {
-        var instrumento = await _context.Instrumentos.FindAsync(id);
-        
         if (_context.Instrumentos != null)
         {
-            if (instrumento == null)
+            var instrumento = await _context.Instrumentos.FindAsync(id);
+        
+            if (_context.Instrumentos != null)
             {
-                return NotFound();
+                if (instrumento == null)
+                {
+                    return NotFound();
+                }
             }
+
+            if (_context.Instrumentos != null)
+                if (instrumento != null)
+                    _context.Instrumentos.Remove(instrumento);
         }
 
-        _context.Instrumentos.Remove(instrumento);
         await _context.SaveChangesAsync();
 
         return NoContent();
@@ -94,6 +106,6 @@ public class InstrumentosController : ControllerBase
 
     private bool InstrumentosExists(int id)
     {
-        return _context.Instrumentos.Any(e => e.Id == id);
+        return _context.Instrumentos != null && _context.Instrumentos.Any(e => e.Id == id);
     }
 }

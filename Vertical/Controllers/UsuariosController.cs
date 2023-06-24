@@ -17,22 +17,28 @@ public class UsuariosController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Usuarios>>> GetUsuarios()
+    public async Task<ActionResult<IEnumerable<Usuarios>>?> GetUsuarios()
     {
-        return await _context.Usuarios.ToListAsync();
+        if (_context.Usuarios != null) return await _context.Usuarios.ToListAsync();
+        return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Usuarios>> GetUsuario(int id)
+    public async Task<ActionResult<Usuarios>?> GetUsuario(int id)
     {
-        var usuario = await _context.Usuarios.FindAsync(id);
-
-        if (usuario == null)
+        if (_context.Usuarios != null)
         {
-            return NotFound();
-        }
+            var usuario = await _context.Usuarios.FindAsync(id);
+
+            if (usuario == null)
+            {
+                return NotFound();
+            }
         
-        return usuario;
+            return usuario;
+        }
+
+        return null;
     }
 
     [HttpPut("{id}")]
@@ -67,7 +73,7 @@ public class UsuariosController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Usuarios>> PostUsuario(Usuarios usuario)
     {
-        _context.Usuarios.Add(usuario);
+        if (_context.Usuarios != null) _context.Usuarios.Add(usuario);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetUsuarios", new { id = usuario.Id }, usuario);
@@ -95,6 +101,6 @@ public class UsuariosController : ControllerBase
 
     private bool UsuarioExists(int id)
     {
-        return _context.Usuarios.Any(e => e.Id == id);
+        return _context.Usuarios != null && _context.Usuarios.Any(e => e.Id == id);
     }
 }

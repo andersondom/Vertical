@@ -17,22 +17,28 @@ public class DiscipulosController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Discipulos>>> GetDiscipulos()
+    public async Task<ActionResult<IEnumerable<Discipulos>>?> GetDiscipulos()
     {
-        return await _context.Discipulos.ToListAsync();
+        if (_context.Discipulos != null) return await _context.Discipulos.ToListAsync();
+        return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Discipulos>> GetDiscipulo(int id)
+    public async Task<ActionResult<Discipulos>?> GetDiscipulo(int id)
     {
-        var discipulo = await _context.Discipulos.FindAsync(id);
-
-        if (discipulo == null)
+        if (_context.Discipulos != null)
         {
-            return NotFound();
+            var discipulo = await _context.Discipulos.FindAsync(id);
+
+            if (discipulo == null)
+            {
+                return NotFound();
+            }
+
+            return discipulo;
         }
 
-        return discipulo;
+        return null;
     }
 
     [HttpPut("{id}")]
@@ -67,7 +73,7 @@ public class DiscipulosController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Discipulos>> PostDiscipulo(Discipulos discipulo)
     {
-        _context.Discipulos.Add(discipulo);
+        if (_context.Discipulos != null) _context.Discipulos.Add(discipulo);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetDiscipulo", new { id = discipulo.Id }, discipulo);
@@ -76,17 +82,23 @@ public class DiscipulosController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteDiscipulo(int id)
     {
-        var discipulo = await _context.Discipulos.FindAsync(id);
-        
         if (_context.Discipulos != null)
         {
-            if (discipulo == null)
+            var discipulo = await _context.Discipulos.FindAsync(id);
+        
+            if (_context.Discipulos != null)
             {
-                return NotFound();
+                if (discipulo == null)
+                {
+                    return NotFound();
+                }
             }
+
+            if (_context.Discipulos != null)
+                if (discipulo != null)
+                    _context.Discipulos.Remove(discipulo);
         }
 
-        _context.Discipulos.Remove(discipulo);
         await _context.SaveChangesAsync();
 
         return NoContent();
@@ -94,6 +106,6 @@ public class DiscipulosController : ControllerBase
 
     private bool DiscipulosExists(int id)
     {
-        return _context.Discipulos.Any(e => e.Id == id);
+        return _context.Discipulos != null && _context.Discipulos.Any(e => e.Id == id);
     }
 }

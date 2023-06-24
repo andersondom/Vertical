@@ -17,22 +17,28 @@ public class GruposController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Grupos>>> GetGrupos()
+    public async Task<ActionResult<IEnumerable<Grupos>>?> GetGrupos()
     {
-        return await _context.Grupos.ToListAsync();
+        if (_context.Grupos != null) return await _context.Grupos.ToListAsync();
+        return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Grupos>> GetGrupo(int id)
+    public async Task<ActionResult<Grupos>?> GetGrupo(int id)
     {
-        var client = await _context.Grupos.FindAsync(id);
-
-        if (client == null)
+        if (_context.Grupos != null)
         {
-            return NotFound();
+            var client = await _context.Grupos.FindAsync(id);
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+
+            return client;
         }
 
-        return client;
+        return null;
     }
 
     [HttpPut("{id}")]
@@ -67,7 +73,7 @@ public class GruposController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Grupos>> PostClient(Grupos grupo)
     {
-        _context.Grupos.Add(grupo);
+        if (_context.Grupos != null) _context.Grupos.Add(grupo);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetGrupos", new { id = grupo.Id }, grupo);
@@ -76,17 +82,23 @@ public class GruposController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteGrupo(int id)
     {
-        var grupo = await _context.Grupos.FindAsync(id);
-        
         if (_context.Grupos != null)
         {
-            if (grupo == null)
+            var grupo = await _context.Grupos.FindAsync(id);
+        
+            if (_context.Grupos != null)
             {
-                return NotFound();
+                if (grupo == null)
+                {
+                    return NotFound();
+                }
             }
+
+            if (_context.Grupos != null)
+                if (grupo != null)
+                    _context.Grupos.Remove(grupo);
         }
 
-        _context.Grupos.Remove(grupo);
         await _context.SaveChangesAsync();
 
         return NoContent();
@@ -94,6 +106,6 @@ public class GruposController : ControllerBase
 
     private bool GruposExists(int id)
     {
-        return _context.Grupos.Any(e => e.Id == id);
+        return _context.Grupos != null && _context.Grupos.Any(e => e.Id == id);
     }
 }
