@@ -12,7 +12,7 @@ using Vertical.Context;
 namespace Vertical.Migrations
 {
     [DbContext(typeof(VerticalDbContext))]
-    [Migration("20230623021819_inicial")]
+    [Migration("20230623030804_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -41,6 +41,25 @@ namespace Vertical.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Discipulos");
+                });
+
+            modelBuilder.Entity("Vertical.Models.DiscipulosInstrumentos", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IdDiscipulo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdInstrumento")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DiscipulosInstrumentos");
                 });
 
             modelBuilder.Entity("Vertical.Models.Grupos", b =>
@@ -93,6 +112,12 @@ namespace Vertical.Migrations
                     b.Property<DateTime>("DataRegistro")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("GruposId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdGrupo")
+                        .HasColumnType("int");
+
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -110,7 +135,23 @@ namespace Vertical.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GruposId");
+
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("Vertical.Models.Usuarios", b =>
+                {
+                    b.HasOne("Vertical.Models.Grupos", "Grupos")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("GruposId");
+
+                    b.Navigation("Grupos");
+                });
+
+            modelBuilder.Entity("Vertical.Models.Grupos", b =>
+                {
+                    b.Navigation("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

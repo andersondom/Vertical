@@ -25,6 +25,20 @@ namespace Vertical.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DiscipulosInstrumentos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdDiscipulo = table.Column<int>(type: "int", nullable: false),
+                    IdInstrumento = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DiscipulosInstrumentos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Grupos",
                 columns: table => new
                 {
@@ -60,12 +74,24 @@ namespace Vertical.Migrations
                     Login = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    DataRegistro = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DataRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IdGrupo = table.Column<int>(type: "int", nullable: false),
+                    GruposId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Grupos_GruposId",
+                        column: x => x.GruposId,
+                        principalTable: "Grupos",
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_GruposId",
+                table: "Usuarios",
+                column: "GruposId");
         }
 
         /// <inheritdoc />
@@ -75,13 +101,16 @@ namespace Vertical.Migrations
                 name: "Discipulos");
 
             migrationBuilder.DropTable(
-                name: "Grupos");
+                name: "DiscipulosInstrumentos");
 
             migrationBuilder.DropTable(
                 name: "Instrumentos");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Grupos");
         }
     }
 }

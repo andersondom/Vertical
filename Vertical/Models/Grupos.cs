@@ -21,5 +21,5 @@ public class Grupos
     [DisplayFormat(DataFormatString = "mm/dd/yyyy")]
     public DateTime DataRegistro { get; set; }
 
-    public ICollection<Usuarios> Usuarios { get; }
+    public ICollection<Usuarios>? Usuarios { get; }
 }
