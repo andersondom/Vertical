@@ -26,8 +26,6 @@
 
     <ItemGroup>
       <Compile Remove="Migrations\**" />
-      <Compile Remove="WeatherForecast.cs" />
-      <Compile Remove="Controllers\WeatherForecastController.cs" />
     </ItemGroup>
 
     <ItemGroup>
