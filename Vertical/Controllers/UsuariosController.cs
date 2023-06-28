@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Vertical.Context;
 using Vertical.Models;
 
 namespace Vertical.Controllers;
@@ -9,22 +8,22 @@ namespace Vertical.Controllers;
 [ApiController]
 public class UsuariosController : ControllerBase
 {
-    private readonly VerticalDbContext _context;
+    private readonly AppDbContext _context;
 
-    public UsuariosController(VerticalDbContext context)
+    public UsuariosController(AppDbContext context)
     {
         _context = context;
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Usuarios>>?> GetUsuarios()
+    public async Task<ActionResult<IEnumerable<Usuario>>?> GetUsuarios()
     {
         if (_context.Usuarios != null) return await _context.Usuarios.ToListAsync();
         return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Usuarios>?> GetUsuario(int id)
+    public async Task<ActionResult<Usuario>?> GetUsuario(int id)
     {
         if (_context.Usuarios != null)
         {
@@ -42,7 +41,7 @@ public class UsuariosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutUsuario(int id, Usuarios usuario)
+    public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
     {
         if (id != usuario.Id)
         {
@@ -71,9 +70,9 @@ public class UsuariosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Usuarios>> PostUsuario(Usuarios usuario)
+    public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
     {
-        if (_context.Usuarios != null) _context.Usuarios.Add(usuario);
+        _context.Usuarios?.Add(usuario);
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetUsuarios", new { id = usuario.Id }, usuario);

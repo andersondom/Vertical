@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Vertical.Context;
+using Vertical.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 
 var sqlServerConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<VerticalDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(sqlServerConnection, b => b.MigrationsAssembly("Vertical")));
 
 var app = builder.Build();

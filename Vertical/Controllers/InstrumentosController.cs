@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Vertical.Context;
 using Vertical.Models;
 
 namespace Vertical.Controllers;
@@ -9,22 +8,22 @@ namespace Vertical.Controllers;
 [ApiController]
 public class InstrumentosController : ControllerBase
 {
-    private readonly VerticalDbContext _context;
+    private readonly AppDbContext _context;
 
-    public InstrumentosController(VerticalDbContext context)
+    public InstrumentosController(AppDbContext context)
     {
         _context = context;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Instrumentos>>?> GetInstrumentos()
+    public async Task<ActionResult<IEnumerable<Instrumento>>?> GetInstrumentos()
     {
         if (_context.Instrumentos != null) return await _context.Instrumentos.ToListAsync();
         return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Instrumentos>?> GetInstrumento(int id)
+    public async Task<ActionResult<Instrumento>?> GetInstrumento(int id)
     {
         if (_context.Instrumentos != null)
         {
@@ -42,7 +41,7 @@ public class InstrumentosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutInstrumentos(int id, Instrumentos instrumento)
+    public async Task<IActionResult> PutInstrumentos(int id, Instrumento instrumento)
     {
         if (id != instrumento.Id)
         {
@@ -71,7 +70,7 @@ public class InstrumentosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Instrumentos>> PostInstrumentos(Instrumentos instrumento)
+    public async Task<ActionResult<Instrumento>> PostInstrumentos(Instrumento instrumento)
     {
         _context.Instrumentos?.Add(instrumento);
         await _context.SaveChangesAsync();

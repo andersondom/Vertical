@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Vertical.Context;
 using Vertical.Models;
 
 namespace Vertical.Controllers;
@@ -9,22 +8,22 @@ namespace Vertical.Controllers;
 [ApiController]
 public class DiscipulosController : ControllerBase
 {
-    private readonly VerticalDbContext _context;
+    private readonly AppDbContext _context;
 
-    public DiscipulosController(VerticalDbContext context)
+    public DiscipulosController(AppDbContext context)
     {
         _context = context;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Discipulos>>?> GetDiscipulos()
+    public async Task<ActionResult<IEnumerable<Discipulo>>?> GetDiscipulos()
     {
         if (_context.Discipulos != null) return await _context.Discipulos.ToListAsync();
         return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Discipulos>?> GetDiscipulo(int id)
+    public async Task<ActionResult<Discipulo>?> GetDiscipulo(int id)
     {
         if (_context.Discipulos != null)
         {
@@ -42,7 +41,7 @@ public class DiscipulosController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutDiscipulos(int id, Discipulos discipulo)
+    public async Task<IActionResult> PutDiscipulos(int id, Discipulo discipulo)
     {
         if (id != discipulo.Id)
         {
@@ -71,7 +70,7 @@ public class DiscipulosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Discipulos>> PostDiscipulo(Discipulos discipulo)
+    public async Task<ActionResult<Discipulo>> PostDiscipulo(Discipulo discipulo)
     {
         if (_context.Discipulos != null) _context.Discipulos.Add(discipulo);
         await _context.SaveChangesAsync();

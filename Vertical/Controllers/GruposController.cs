@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Vertical.Context;
 using Vertical.Models;
 
 namespace Vertical.Controllers;
@@ -9,22 +8,22 @@ namespace Vertical.Controllers;
 [ApiController]
 public class GruposController : ControllerBase
 {
-    private readonly VerticalDbContext _context;
+    private readonly AppDbContext _context;
 
-    public GruposController(VerticalDbContext context)
+    public GruposController(AppDbContext context)
     {
         _context = context;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Grupos>>?> GetGrupos()
+    public async Task<ActionResult<IEnumerable<Grupo>>?> GetGrupos()
     {
         if (_context.Grupos != null) return await _context.Grupos.ToListAsync();
         return null;
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Grupos>?> GetGrupo(int id)
+    public async Task<ActionResult<Grupo>?> GetGrupo(int id)
     {
         if (_context.Grupos != null)
         {
@@ -42,7 +41,7 @@ public class GruposController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutGrupos(int id, Grupos grupo)
+    public async Task<IActionResult> PutGrupos(int id, Grupo grupo)
     {
         if (id != grupo.Id)
         {
@@ -71,7 +70,7 @@ public class GruposController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Grupos>> PostClient(Grupos grupo)
+    public async Task<ActionResult<Grupo>> PostClient(Grupo grupo)
     {
         if (_context.Grupos != null) _context.Grupos.Add(grupo);
         await _context.SaveChangesAsync();

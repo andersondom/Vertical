@@ -7,25 +7,28 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.7">
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-preview.5.23280.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0-preview.5.23280.1">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.7">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0-preview.5.23280.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-preview.5.23280.1">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Views\" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0-preview.5.23313.2" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Compile Remove="Migrations\**" />
+      <Compile Remove="Controllers\UsuariosController.cs" />
+      <Compile Remove="Controllers\DiscipulosController.cs" />
+      <Compile Remove="Controllers\GruposController.cs" />
+      <Compile Remove="Controllers\InstrumentosController.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -38,6 +41,14 @@
 
     <ItemGroup>
       <None Remove="Migrations\**" />
+      <None Remove="ScaffoldingReadMe.txt" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Areas\UsuarioController\Controllers\" />
+      <Folder Include="Areas\UsuarioController\Data\" />
+      <Folder Include="Areas\UsuarioController\Models\" />
+      <Folder Include="Areas\UsuarioController\Views\" />
     </ItemGroup>
 
 </Project>
