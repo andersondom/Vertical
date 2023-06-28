@@ -25,10 +25,6 @@
 
     <ItemGroup>
       <Compile Remove="Migrations\**" />
-      <Compile Remove="Controllers\UsuariosController.cs" />
-      <Compile Remove="Controllers\DiscipulosController.cs" />
-      <Compile Remove="Controllers\GruposController.cs" />
-      <Compile Remove="Controllers\InstrumentosController.cs" />
     </ItemGroup>
 
     <ItemGroup>
