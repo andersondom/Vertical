@@ -28,7 +28,7 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            return await _context.Usuarios.ToListAsync();
+          return await _context.Usuarios.ToListAsync();
         }
 
         // GET: api/Usuario/5
@@ -39,14 +39,14 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            var usuario = await _context.Usuarios.FindAsync(id);
+          var usuario = await _context.Usuarios.FindAsync(id);
 
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+          if (usuario == null)
+          {
+              return NotFound();
+          }
 
-            return usuario;
+          return usuario;
         }
 
         // PUT: api/Usuario/5
@@ -89,10 +89,10 @@ namespace Vertical.Controllers
           {
               return Problem("Entity set 'AppDbContext.Usuarios'  is null.");
           }
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
+          _context.Usuarios.Add(usuario);
+          await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
+          return CreatedAtAction("GetUsuario", new { id = usuario.Id }, usuario);
         }
 
         // DELETE: api/Usuario/5

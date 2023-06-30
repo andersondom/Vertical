@@ -7,117 +7,116 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vertical.Models;
 
-namespace Vertical.Controllers
+namespace Vertical.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class InstrumentoController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class InstrumentoController : ControllerBase
+    private readonly AppDbContext _context;
+
+    public InstrumentoController(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public InstrumentoController(AppDbContext context)
+    // GET: api/Instrumento
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Instrumento>>> GetInstrumentos()
+    {
+        if (_context.Instrumentos == null)
         {
-            _context = context;
+            return NotFound();
+        }
+        return await _context.Instrumentos.ToListAsync();
+    }
+
+    // GET: api/Instrumento/5
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Instrumento>> GetInstrumento(int id)
+    {
+        if (_context.Instrumentos == null)
+        {
+            return NotFound();
+        }
+        var instrumento = await _context.Instrumentos.FindAsync(id);
+
+        if (instrumento == null)
+        {
+            return NotFound();
         }
 
-        // GET: api/Instrumento
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Instrumento>>> GetInstrumentos()
+        return instrumento;
+    }
+
+    // PUT: api/Instrumento/5
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPut("{id}")]
+    public async Task<IActionResult> PutInstrumento(int id, Instrumento instrumento)
+    {
+        if (id != instrumento.Id)
         {
-          if (_context.Instrumentos == null)
-          {
-              return NotFound();
-          }
-            return await _context.Instrumentos.ToListAsync();
+            return BadRequest();
         }
 
-        // GET: api/Instrumento/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Instrumento>> GetInstrumento(int id)
+        _context.Entry(instrumento).State = EntityState.Modified;
+
+        try
         {
-          if (_context.Instrumentos == null)
-          {
-              return NotFound();
-          }
-            var instrumento = await _context.Instrumentos.FindAsync(id);
-
-            if (instrumento == null)
-            {
-                return NotFound();
-            }
-
-            return instrumento;
-        }
-
-        // PUT: api/Instrumento/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutInstrumento(int id, Instrumento instrumento)
-        {
-            if (id != instrumento.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(instrumento).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!InstrumentoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Instrumento
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Instrumento>> PostInstrumento(Instrumento instrumento)
-        {
-          if (_context.Instrumentos == null)
-          {
-              return Problem("Entity set 'AppDbContext.Instrumentos'  is null.");
-          }
-            _context.Instrumentos.Add(instrumento);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetInstrumento", new { id = instrumento.Id }, instrumento);
         }
-
-        // DELETE: api/Instrumento/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteInstrumento(int id)
+        catch (DbUpdateConcurrencyException)
         {
-            if (_context.Instrumentos == null)
+            if (!InstrumentoExists(id))
             {
                 return NotFound();
             }
-            var instrumento = await _context.Instrumentos.FindAsync(id);
-            if (instrumento == null)
+            else
             {
-                return NotFound();
+                throw;
             }
-
-            _context.Instrumentos.Remove(instrumento);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
-        private bool InstrumentoExists(int id)
+        return NoContent();
+    }
+
+    // POST: api/Instrumento
+    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+    [HttpPost]
+    public async Task<ActionResult<Instrumento>> PostInstrumento(Instrumento instrumento)
+    {
+        if (_context.Instrumentos == null)
         {
-            return (_context.Instrumentos?.Any(e => e.Id == id)).GetValueOrDefault();
+            return Problem("Entity set 'AppDbContext.Instrumentos'  is null.");
         }
+        _context.Instrumentos.Add(instrumento);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction("GetInstrumento", new { id = instrumento.Id }, instrumento);
+    }
+
+    // DELETE: api/Instrumento/5
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteInstrumento(int id)
+    {
+        if (_context.Instrumentos == null)
+        {
+            return NotFound();
+        }
+        var instrumento = await _context.Instrumentos.FindAsync(id);
+        if (instrumento == null)
+        {
+            return NotFound();
+        }
+
+        _context.Instrumentos.Remove(instrumento);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    private bool InstrumentoExists(int id)
+    {
+        return (_context.Instrumentos?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }

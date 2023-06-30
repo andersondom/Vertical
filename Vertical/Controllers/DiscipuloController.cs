@@ -11,11 +11,11 @@ namespace Vertical.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DisicpuloController : ControllerBase
+    public class DiscipuloController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public DisicpuloController(AppDbContext context)
+        public DiscipuloController(AppDbContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            return await _context.Discipulos.ToListAsync();
+          return await _context.Discipulos.ToListAsync();
         }
 
         // GET: api/Disicpulo/5
@@ -39,14 +39,14 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            var discipulo = await _context.Discipulos.FindAsync(id);
+          var discipulo = await _context.Discipulos.FindAsync(id);
 
-            if (discipulo == null)
-            {
-                return NotFound();
-            }
+          if (discipulo == null)
+          {
+              return NotFound();
+          }
 
-            return discipulo;
+          return discipulo;
         }
 
         // PUT: api/Disicpulo/5
@@ -89,10 +89,10 @@ namespace Vertical.Controllers
           {
               return Problem("Entity set 'AppDbContext.Discipulos'  is null.");
           }
-            _context.Discipulos.Add(discipulo);
-            await _context.SaveChangesAsync();
+          _context.Discipulos.Add(discipulo);
+          await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscipulo", new { id = discipulo.Id }, discipulo);
+          return CreatedAtAction("GetDiscipulo", new { id = discipulo.Id }, discipulo);
         }
 
         // DELETE: api/Disicpulo/5

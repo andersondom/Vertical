@@ -28,7 +28,7 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            return await _context.Grupos.ToListAsync();
+          return await _context.Grupos.ToListAsync();
         }
 
         // GET: api/Grupo/5
@@ -39,14 +39,14 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            var grupo = await _context.Grupos.FindAsync(id);
+          var grupo = await _context.Grupos.FindAsync(id);
 
-            if (grupo == null)
-            {
-                return NotFound();
-            }
+          if (grupo == null)
+          {
+              return NotFound();
+          }
 
-            return grupo;
+          return grupo;
         }
 
         // PUT: api/Grupo/5
@@ -89,10 +89,10 @@ namespace Vertical.Controllers
           {
               return Problem("Entity set 'AppDbContext.Grupos'  is null.");
           }
-            _context.Grupos.Add(grupo);
-            await _context.SaveChangesAsync();
+          _context.Grupos.Add(grupo);
+          await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGrupo", new { id = grupo.Id }, grupo);
+          return CreatedAtAction("GetGrupo", new { id = grupo.Id }, grupo);
         }
 
         // DELETE: api/Grupo/5

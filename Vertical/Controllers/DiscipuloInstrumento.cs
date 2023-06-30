@@ -28,7 +28,7 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            return await _context.DiscipulosInstrumentos.ToListAsync();
+          return await _context.DiscipulosInstrumentos.ToListAsync();
         }
 
         // GET: api/DiscipuloInstrumento/5
@@ -39,14 +39,14 @@ namespace Vertical.Controllers
           {
               return NotFound();
           }
-            var discipulosInstrumento = await _context.DiscipulosInstrumentos.FindAsync(id);
+          var discipulosInstrumento = await _context.DiscipulosInstrumentos.FindAsync(id);
 
-            if (discipulosInstrumento == null)
-            {
-                return NotFound();
-            }
+          if (discipulosInstrumento == null)
+          {
+              return NotFound();
+          }
 
-            return discipulosInstrumento;
+          return discipulosInstrumento;
         }
 
         // PUT: api/DiscipuloInstrumento/5
@@ -87,12 +87,12 @@ namespace Vertical.Controllers
         {
           if (_context.DiscipulosInstrumentos == null)
           {
-              return Problem("Entity set 'AppDbContext.DiscipulosInstrumentos'  is null.");
+              return Problem("Entity set 'AppDbContext.DiscipulosInstrumentos' is null.");
           }
-            _context.DiscipulosInstrumentos.Add(discipulosInstrumento);
-            await _context.SaveChangesAsync();
+          _context.DiscipulosInstrumentos.Add(discipulosInstrumento);
+          await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetDiscipulosInstrumento", new { id = discipulosInstrumento.Id }, discipulosInstrumento);
+          return CreatedAtAction("GetDiscipulosInstrumento", new { id = discipulosInstrumento.Id }, discipulosInstrumento);
         }
 
         // DELETE: api/DiscipuloInstrumento/5
