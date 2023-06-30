@@ -11,11 +11,11 @@ namespace Vertical.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DiscipuloInstrumento : ControllerBase
+    public class DiscipuloInstrumentoController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public DiscipuloInstrumento(AppDbContext context)
+        public DiscipuloInstrumentoController(AppDbContext context)
         {
             _context = context;
         }
@@ -24,29 +24,21 @@ namespace Vertical.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DiscipulosInstrumento>>> GetDiscipulosInstrumentos()
         {
-          if (_context.DiscipulosInstrumentos == null)
-          {
-              return NotFound();
-          }
-          return await _context.DiscipulosInstrumentos.ToListAsync();
+            return await _context.DiscipulosInstrumentos.ToListAsync();
         }
 
         // GET: api/DiscipuloInstrumento/5
         [HttpGet("{id}")]
         public async Task<ActionResult<DiscipulosInstrumento>> GetDiscipulosInstrumento(int id)
         {
-          if (_context.DiscipulosInstrumentos == null)
-          {
-              return NotFound();
-          }
-          var discipulosInstrumento = await _context.DiscipulosInstrumentos.FindAsync(id);
+            var discipulosInstrumento = await _context.DiscipulosInstrumentos.FindAsync(id);
 
-          if (discipulosInstrumento == null)
-          {
-              return NotFound();
-          }
+            if (discipulosInstrumento == null)
+            {
+                return NotFound();
+            }
 
-          return discipulosInstrumento;
+            return discipulosInstrumento;
         }
 
         // PUT: api/DiscipuloInstrumento/5
@@ -85,24 +77,16 @@ namespace Vertical.Controllers
         [HttpPost]
         public async Task<ActionResult<DiscipulosInstrumento>> PostDiscipulosInstrumento(DiscipulosInstrumento discipulosInstrumento)
         {
-          if (_context.DiscipulosInstrumentos == null)
-          {
-              return Problem("Entity set 'AppDbContext.DiscipulosInstrumentos' is null.");
-          }
-          _context.DiscipulosInstrumentos.Add(discipulosInstrumento);
-          await _context.SaveChangesAsync();
+            _context.DiscipulosInstrumentos.Add(discipulosInstrumento);
+            await _context.SaveChangesAsync();
 
-          return CreatedAtAction("GetDiscipulosInstrumento", new { id = discipulosInstrumento.Id }, discipulosInstrumento);
+            return CreatedAtAction("GetDiscipulosInstrumento", new { id = discipulosInstrumento.Id }, discipulosInstrumento);
         }
 
         // DELETE: api/DiscipuloInstrumento/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDiscipulosInstrumento(int id)
         {
-            if (_context.DiscipulosInstrumentos == null)
-            {
-                return NotFound();
-            }
             var discipulosInstrumento = await _context.DiscipulosInstrumentos.FindAsync(id);
             if (discipulosInstrumento == null)
             {
@@ -117,7 +101,7 @@ namespace Vertical.Controllers
 
         private bool DiscipulosInstrumentoExists(int id)
         {
-            return (_context.DiscipulosInstrumentos?.Any(e => e.Id == id)).GetValueOrDefault();
+            return _context.DiscipulosInstrumentos.Any(e => e.Id == id);
         }
     }
 }
