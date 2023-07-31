@@ -41,11 +41,4 @@
       <None Remove="ScaffoldingReadMe.txt" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Areas\UsuarioController\Controllers\" />
-      <Folder Include="Areas\UsuarioController\Data\" />
-      <Folder Include="Areas\UsuarioController\Models\" />
-      <Folder Include="Areas\UsuarioController\Views\" />
-    </ItemGroup>
-
 </Project>

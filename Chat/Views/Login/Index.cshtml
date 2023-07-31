@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Página Inicial";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bem-Vindo ao Chat Teste - Página Inicial</h1>
+    <form id="messageForm">
+        <label for="message">Mensagem:</label>
+        <br>
+        <textarea id="message" rows="5" cols="30"></textarea>
+        <br>
+        <button type="submit">Enviar</button>
+    </form>
+</div>
+
+<script>
+    // Manipulador de evento para o envio do formulário
+    document.getElementById('messageForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Evita o envio padrão do formulário
+
+      // Obter o valor da mensagem
+      var message = document.getElementById('message').value;
+
+      // Aqui você pode fazer algo com a mensagem, como enviá-la para um servidor ou processá-la localmente
+
+      // Exemplo: exibir a mensagem em um alerta
+      alert('Mensagem enviada:\n' + message);
+
+      // Limpar o campo de texto
+      document.getElementById('message').value = '';
+    });
+</script>

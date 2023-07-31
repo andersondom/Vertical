@@ -1,0 +1,85 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.container {
+  position: relative;
+  height: 100vh; /* Define a altura total da viewport */
+}
+
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Estilos do conteúdo */
+}
+
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:active {
+  background-color: #003366;
+}
+
+/* Estilos para tornar o textarea redimensionável */
+textarea {
+  resize: vertical;
+}
+
+/* Estilos para adicionar um pouco de espaçamento entre elementos */
+br {
+  margin-bottom: 10px;
+}

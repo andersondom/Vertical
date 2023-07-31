@@ -22,5 +22,6 @@ public partial class Grupo
     [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
     public DateTime DataRegistro { get; set; }
 
+    [Display(Description = "Lista de usuários")]
     public virtual ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
 }

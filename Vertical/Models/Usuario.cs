@@ -36,5 +36,6 @@ public partial class Usuario
     
     public int IdGrupo { get; set; }
 
-    public virtual Grupo IdGrupoNavigation { get; set; } = null!;
+    [Display(Description = "Lista de grupos")]
+    public virtual Grupo Grupo { get; set; } = null!;
 }

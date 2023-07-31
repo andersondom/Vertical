@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Vertical.Models;
 
-namespace Vertical.Models;
+namespace Vertical.Context;
 
 public partial class AppDbContext : DbContext
 {
@@ -43,12 +42,12 @@ public partial class AppDbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("DiscipulosInstrumentosPk");
 
-            entity.HasOne(d => d.IdDiscipuloNavigation).WithMany(p => p.DiscipulosInstrumentos)
+            entity.HasOne(d => d.Discipulo).WithMany(p => p.DiscipulosInstrumentos)
                 .HasForeignKey(d => d.IdDiscipulo)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("DiscipulosInstrumentosDiscipulosFK");
 
-            entity.HasOne(d => d.IdInstrumentoNavigation).WithMany(p => p.DiscipulosInstrumentos)
+            entity.HasOne(d => d.Instrumento).WithMany(p => p.DiscipulosInstrumentos)
                 .HasForeignKey(d => d.IdInstrumento)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("DiscipulosInstrumentosInstrumentosFK");
@@ -88,7 +87,7 @@ public partial class AppDbContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.IdGrupoNavigation).WithMany(p => p.Usuarios)
+            entity.HasOne(d => d.Grupo).WithMany(p => p.Usuarios)
                 .HasForeignKey(d => d.IdGrupo)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("UsuariosGruposFK");
