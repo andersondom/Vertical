@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Vertical.Models;
 
 [Table("Usuarios")]
-public partial class Usuario
+public class Usuario
 {
     public int Id { get; set; }
 

@@ -2,6 +2,31 @@
   "version": 3,
   "targets": {
     "net7.0": {
+      "AWS.Toolkit.Telemetry.SDK/1.0.141": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "3.7.13.1"
+        },
+        "compile": {
+          "lib/net472/Amazon.AwsToolkit.Telemetry.SDK.dll": {}
+        },
+        "runtime": {
+          "lib/net472/Amazon.AwsToolkit.Telemetry.SDK.dll": {}
+        }
+      },
+      "AWSSDK.Core/3.7.13.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Azure.Core/1.25.0": {
         "type": "package",
         "dependencies": {
@@ -4203,6 +4228,43 @@
     }
   },
   "libraries": {
+    "AWS.Toolkit.Telemetry.SDK/1.0.141": {
+      "sha512": "ePfAFb5LlQSCfyvW5yGlsElv3Q8iiOPzb7tG4+dgaF+7mI95cEiTrCceSXNoN6gCT2heP3+TRhuiEQQGb/uVMg==",
+      "type": "package",
+      "path": "aws.toolkit.telemetry.sdk/1.0.141",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aws.toolkit.telemetry.sdk.1.0.141.nupkg.sha512",
+        "aws.toolkit.telemetry.sdk.nuspec",
+        "lib/net472/Amazon.AwsToolkit.Telemetry.SDK.dll"
+      ]
+    },
+    "AWSSDK.Core/3.7.13.1": {
+      "sha512": "vZy30PS4Wr811fbLxGF1tE7rA4PZu/MPYrF2Aelc4jS9+jC/vAq7rwNEO3v19lhaxB9jlOeqhkCp2xx/exSyZA==",
+      "type": "package",
+      "path": "awssdk.core/3.7.13.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "awssdk.core.3.7.13.1.nupkg.sha512",
+        "awssdk.core.nuspec",
+        "lib/net35/AWSSDK.Core.dll",
+        "lib/net35/AWSSDK.Core.pdb",
+        "lib/net35/AWSSDK.Core.xml",
+        "lib/net45/AWSSDK.Core.dll",
+        "lib/net45/AWSSDK.Core.pdb",
+        "lib/net45/AWSSDK.Core.xml",
+        "lib/netcoreapp3.1/AWSSDK.Core.dll",
+        "lib/netcoreapp3.1/AWSSDK.Core.pdb",
+        "lib/netcoreapp3.1/AWSSDK.Core.xml",
+        "lib/netstandard2.0/AWSSDK.Core.dll",
+        "lib/netstandard2.0/AWSSDK.Core.pdb",
+        "lib/netstandard2.0/AWSSDK.Core.xml",
+        "tools/account-management.ps1"
+      ]
+    },
     "Azure.Core/1.25.0": {
       "sha512": "X8Dd4sAggS84KScWIjEbFAdt2U1KDolQopTPoHVubG2y3CM54f9l6asVrP5Uy384NWXjsspPYaJgz5xHc+KvTA==",
       "type": "package",
@@ -12111,6 +12173,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "AWS.Toolkit.Telemetry.SDK >= 1.0.141",
       "Microsoft.EntityFrameworkCore >= 8.0.0-preview.5.23280.1",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.0-preview.5.23280.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.0-preview.5.23280.1",
@@ -12162,6 +12225,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "AWS.Toolkit.Telemetry.SDK": {
+            "target": "Package",
+            "version": "[1.0.141, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.0-preview.5.23280.1, )"
@@ -12225,5 +12292,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'AWS.Toolkit.Telemetry.SDK 1.0.141' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "AWS.Toolkit.Telemetry.SDK",
+      "targetGraphs": [
+        "net7.0"
+      ]
+    }
+  ]
 }
